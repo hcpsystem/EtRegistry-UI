@@ -1,10 +1,12 @@
+import React from 'react';
+import {View} from 'react-native';
 import {
     createStackNavigator,
     createBottomTabNavigator,
+    createDrawerNavigator,
     createSwitchNavigator,
     createAppContainer
-}
-from 'react-navigation';
+} from 'react-navigation';
 // Screen 
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
@@ -14,10 +16,18 @@ import Photo from '../screens/Photo';
 import Welcome from '../screens/Welcome';
 import Loading from '../screens/Loading';
 
-const AuthStack = createStackNavigator({
+const AuthStack = createStackNavigator(
+    {
     Login,
     SignUp
-});
+    },
+    {
+    contentOptions: {
+        inactiveTintColor: 'white'
+    },
+    headerLayoutPreset: 'center'
+    }
+);
 
 const MainStack = createBottomTabNavigator(
     {
@@ -27,17 +37,12 @@ const MainStack = createBottomTabNavigator(
     }
 );
 
-const AppStack = createStackNavigator({
-
-});
-
 const AppNavigator = createAppContainer(createSwitchNavigator(
     {
-      Auth: AuthStack,
-      Main: MainStack
+        AuthStack: AuthStack
     },
     {
-        initialRouteName:'Auth'
+        initialRouteName:'AuthStack'
     }
 ));
 

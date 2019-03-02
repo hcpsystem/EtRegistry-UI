@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
-import {View} from 'react-native';
+import {View,Text} from 'react-native';
 class Login extends Component {
     render() {
-        <View>
+      return (<View>
             <Text>Login</Text>
-        </View>
+        </View>);
     }
 }
 export default Login;
