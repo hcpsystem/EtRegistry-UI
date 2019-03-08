@@ -1,5 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View,Keyboard} from 'react-native';
+import {Button} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {
     createStackNavigator,
     createBottomTabNavigator,
@@ -15,6 +18,7 @@ import ListUser from '../screens/ListUser';
 import Photo from '../screens/Photo';
 import Welcome from '../screens/Welcome';
 import Loading from '../screens/Loading';
+import Colors from '../theme/styles/colors';
 
 const AuthStack = createStackNavigator(
     {
@@ -37,12 +41,42 @@ const MainStack = createBottomTabNavigator(
     }
 );
 
+MainStack.navigationOptions = ({ navigation }) => {
+    const { routeName } = navigation.state.routes[navigation.state.index];
+    const headerTitle = routeName;
+  
+    return {
+      headerLayoutPreset: 'center',
+      headerTintColor: 'white',
+      headerBackTitle: null,
+      headerStyle: {
+        backgroundColor: Colors.blueBg,
+      },
+      //headerTitle,
+      headerTitleStyle: {
+        textAlign: 'center',
+        flexGrow:1,
+        alignSelf:'center',
+      }
+    };
+};
+
+const AppStack = createStackNavigator(
+    {
+      Home: {
+        screen: MainStack,
+      },
+    }
+  );
+  
 const AppNavigator = createAppContainer(createSwitchNavigator(
     {
-        AuthStack: AuthStack
+        Loading: Loading,
+        Auth: AuthStack,
+        App: AppStack,
     },
     {
-        initialRouteName:'AuthStack'
+        initialRouteName:'Loading'
     }
 ));
 
